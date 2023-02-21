@@ -1,12 +1,16 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
+const cTable = require('console.table');
+const db = require('.');
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'usmc2020',
-    database: 'Etracker'
-});
+const lib = require('./funcs/funcs')
+
+// const connection = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'usmc2020',
+//     database: 'etracker_db'
+// });
 
 const initQuest = {
     type: 'list',
@@ -30,29 +34,30 @@ inquirer
 .then((chose) => {
     switch (chose.init) {
         case 'view all employees': 
-            viewEmps();
+            lib.viewEmps();
             break;
         case 'add employee':
-            addEmployee();
+            lib.addEmployee();
             break;
         case 'update employee role':
-            updateEmpRole();
+            lib.updateEmpRole();
             break;
         case 'view all roles':
-            viewRoles();
+            lib.viewRoles();
             break;
         case 'add role':
-            addRole();
+            lib.addRole();
             break;
         case 'view all departments':
-            viewDepts();
+            lib.viewDepts();
             break;
         case 'add department':
-            addDept();
+            lib.addDept();
             break;
         default:
-            quit();
+            lib.quit();
     }
 })
 }
 
+init();
