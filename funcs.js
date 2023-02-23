@@ -17,6 +17,7 @@ const initQuest = {
     choices: [
         'view all employees',
         'add employee',
+        'delete employee',
         'update employee role',
         'view all roles',
         'add role',
@@ -37,6 +38,9 @@ const init = () => {
             case 'add employee':
                 addEmployee();
                 break;
+            case 'delete employee':
+                    delEmp();
+                    break;
             case 'update employee role':
                 updateEmpRole();
                 break;
@@ -107,6 +111,23 @@ const addEmployee = () => {
             });
         });
 };
+
+const delEmp = () =>{
+    inquirer
+    .prompt(
+        {
+            type:'input',
+            message: 'what is the ID of the employee you want to delete',
+            name: 'idToDel'
+        }
+    ).then((info) => {
+        connection.query('DELETE FROM employee WHERE emp_id=(?)', info.idToDel, (err, res) => {
+            if (err) throw err;
+            console.table(res);
+            init();
+        })
+    })
+}
 
 const updateEmpRole = () => {
     inquirer
